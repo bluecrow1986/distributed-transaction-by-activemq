@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	<!-- 项目名称 -->
+	<property name="PROJECT_NAME" value="phoenix-disease-manager" />
+
+	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
+	<property name="LOG_HOME" value="logs" />
+	
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+	
+	<!-- 控制台输出 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 记录调试日志信息(Debug级别) -->
+	<appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 过滤器，只打印DEBUG级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/${PROJECT_NAME}/debug/debug-%d{yyyyMMdd}_%i.log
+			</FileNamePattern>
+			<!--日志文件保留天数 -->
+			<MaxHistory>15</MaxHistory>
+			<!--日志文件最大的大小 -->
+			<MaxFileSize>10MB</MaxFileSize>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] %logger{50} : %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 记录重要日志信息(Info级别) -->
+	<appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 过滤器，只打印INFO级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/${PROJECT_NAME}/info/info-%d{yyyyMMdd}_%i.log
+			</FileNamePattern>
+			<!--日志文件保留天数 -->
+			<MaxHistory>15</MaxHistory>
+			<!--日志文件最大的大小 -->
+			<MaxFileSize>10MB</MaxFileSize>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] %logger{50} : %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	
+	<!-- 警告日志文件(WARN) -->
+	<appender name="WARN_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 过滤器，只打印WARN级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/${PROJECT_NAME}/warn/warn-%d{yyyyMMdd}_%i.log
+			</FileNamePattern>
+			<!--日志文件保留天数 -->
+			<MaxHistory>365</MaxHistory>
+			<!--日志文件最大的大小 -->
+			<MaxFileSize>10MB</MaxFileSize>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] %logger{50} : %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>	
+	
+	<!-- 系统错误日志文件(Error) -->
+	<appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 过滤器，只打印ERROR级别的日志 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/${PROJECT_NAME}/error/error-%d{yyyyMMdd}_%i.log
+			</FileNamePattern>
+			<!--日志文件保留天数 -->
+			<MaxHistory>365</MaxHistory>
+			<!--日志文件最大的大小 -->
+			<MaxFileSize>10MB</MaxFileSize>
+		</rollingPolicy>
+
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] %logger{50} : %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 测试环境下的日志配置 -->
+	<springProfile name="qa">
+		<root level="DEBUG">
+			<appender-ref ref="DEBUG_FILE" />
+			<appender-ref ref="INFO_FILE" />
+			<appender-ref ref="WARN_FILE" />
+			<appender-ref ref="ERROR_FILE" />
+		</root>
+	</springProfile>
+	
+	<!-- 开发环境下的日志配置 -->
+	<springProfile name="dev">
+		<root level="INFO">
+			<appender-ref ref="INFO_FILE" />
+			<appender-ref ref="WARN_FILE" />
+			<appender-ref ref="ERROR_FILE" />
+		</root>
+		<!-- 打印项目的debug日志 -->
+		<logger name="com.bluecrow" level="DEBUG">
+			<appender-ref ref="DEBUG_FILE" />
+		</logger>
+	</springProfile>
+	
+	<!-- 本地开发环境下的日志配置 -->
+	<springProfile name="local">
+		<root level="INFO">
+			<appender-ref ref="INFO_FILE" />
+			<appender-ref ref="WARN_FILE" />
+			<appender-ref ref="ERROR_FILE" />
+		</root>
+		<!-- 打印项目的debug日志 -->
+		<logger name="com.bluecrow" level="DEBUG">
+			<appender-ref ref="DEBUG_FILE" />
+		</logger>
+	</springProfile>
+	
+	<!-- 测试环境下的日志配置 -->
+	<springProfile name="prod">
+		<root level="INFO">
+			<appender-ref ref="INFO_FILE" />
+			<appender-ref ref="WARN_FILE" />
+			<appender-ref ref="ERROR_FILE" />
+		</root>
+	</springProfile>
+
+</configuration>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluecrow.order.dao.OrderDao">
+  <resultMap id="BaseResultMap" type="com.bluecrow.order.entity.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pay_id" jdbcType="BIGINT" property="payId"/>
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="stage" jdbcType="INTEGER" property="stage" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, amount, stage, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.bluecrow.order.entity.Order" useGeneratedKeys="true">
+    insert into tb_order (pay_id, `name`, amount, stage, create_time)
+    values (#{payId, jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{stage,jdbcType=INTEGER}, CURRENT_TIMESTAMP)
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bluecrow.order.entity.Order">
+    update tb_order
+    set `name` = #{name,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      stage = #{stage,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateOrderStage">
+    update tb_order
+    set stage = #{stage,jdbcType=INTEGER}
+    where pay_id = #{payId,jdbcType=BIGINT}
+  </update>
+</mapper>

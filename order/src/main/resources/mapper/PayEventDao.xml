@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluecrow.order.dao.PayEventDao">
+  <resultMap id="BaseResultMap" type="com.bluecrow.core.entity.PayEvent">
+    <id column="pay_id" jdbcType="BIGINT" property="payId" />
+    <id column="sync_flag" jdbcType="INTEGER" property="syncFlag"/>
+    <result column="order_type" jdbcType="INTEGER" property="orderType" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pay_id, order_type, `process`, content, create_time, update_time
+  </sql>
+  <insert id="insert" parameterType="com.bluecrow.core.entity.PayEvent" useGeneratedKeys="true">
+    insert into tb_pay_event (pay_id, sync_flag, order_type, `process`, content, create_time)
+    values (#{payId,jdbcType=BIGINT},#{syncFlag,jdbcType=INTEGER},#{orderType,jdbcType=VARCHAR}, #{process,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+            CURRENT_TIMESTAMP)
+  </insert>
+</mapper>
